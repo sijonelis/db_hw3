@@ -10,7 +10,7 @@ namespace DB_ND3\AR;
 use DB_ND3\DbWrapper;
 
 include_once('../DbWrapper.php');
-include('ForumThread.php');
+include_once('ForumThread.php');
 
 class Comment {
 
@@ -22,11 +22,12 @@ class Comment {
     private $threadId;
     private $thread;
 
-    public function __construct($id = null, $date = null, $comment = null, $author = null){
+    public function __construct($id = null, $date = null, $comment = null, $author = null, $threadId = null){
         $this->id = $id;
         $this->date = $date;
-        $this->postDate = $comment;
+        $this->comment = $comment;
         $this->title = $author;
+        $this->threadId = $threadId;
         $dbWrapper = new DbWrapper();
         $this->conn = $dbWrapper->getConnection();
 

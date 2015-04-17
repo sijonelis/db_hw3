@@ -9,7 +9,7 @@ namespace DB_ND3\AR;
 
 use DB_ND3\RandomGenerator;
 
-include('ForumThread.php');
+include_once ('ForumThread.php');
 include_once('../RandomGenerator.php');
 
 $rand = new RandomGenerator();

@@ -9,6 +9,7 @@ namespace DB_ND3\AR;
 use DB_ND3\DbWrapper;
 
 include_once('../DbWrapper.php');
+include_once('Comment.php');
 
 class ForumThread
 {
@@ -16,22 +17,35 @@ class ForumThread
     private $author;
     private $postDate;
     private $title;
+    private $postCount;
     private $comments;
     private $conn;
 
-    public function __construct($id = null, $name = null, $postDate = null, $title = null)
+    public function __construct($id, $author, $postDate, $title, $postCount)
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->author = $author;
         $this->postDate = $postDate;
         $this->title = $title;
+        $this->postCount = $postCount;
         $dbWrapper = new DbWrapper();
         $this->conn = $dbWrapper->getConnection();
     }
 
 
     public function loadAll(){
+        $dbWrapper = new DbWrapper();
+        $this->conn = $dbWrapper->getConnection();
 
+        $query = "SELECT * FROM thread;";
+        $result  = mysql_query($query);
+        while ($row = mysql_fetch_array($result)) {
+            $thread = new ForumThread($row['thread_id'], $row['thread_created_by'], $row['thread_date'],
+                $row['thread_title'], $row['thread_comment_count']);
+            $thread->setComments();
+            $threads[] = $thread;
+        }
+        return $threads;
     }
 
     public function save(){
@@ -91,9 +105,26 @@ class ForumThread
         return $this->title;
     }
 
-    public function getComments(){
+    public function setPostCount($postCount){
+        $this->postCount = $postCount;
+    }
+
+    public function getPostCount(){
+        return $this->postCount;
+    }
+
+    public function setComments(){
         $query = "SELECT * FROM post WHERE post_thread_id = " . $this->getId() . ";";
-        $this->comments  = mysql_query($query);
+       // $this->comments  = mysql_query($query);
+        $result  = mysql_query($query);
+        while ($row = mysql_fetch_array($result)) {
+            $comment = new Comment($row['post_id'], $row['post_date'], $row['post_comment'], $row['post_author'],
+                $row['post_thread_id']);
+            $this->comments[] = $comment;
+        }
+    }
+
+    public function getComments(){
         return $this->comments;
     }
 }

@@ -7,10 +7,23 @@
  */
 namespace DB_ND3\AR;
 
+include_once ('ForumThread.php');
+
+use Iterator;
+
 class ThreadList implements Iterator {
 
+    private $threads;
+
+    private $currentElement;
+
+    public function __construct(){
+        $this->currentElement = 0;
+    }
+
     public function loadAll(){
-        //todo implement
+//        $ft = new ForumThread();
+        $this->threads = ForumThread::loadAll();
     }
 
     /**
@@ -21,7 +34,7 @@ class ThreadList implements Iterator {
      */
     public function current()
     {
-        // TODO: Implement current() method.
+        return $this->threads[$this->currentElement];
     }
 
     /**
@@ -32,7 +45,7 @@ class ThreadList implements Iterator {
      */
     public function next()
     {
-        // TODO: Implement next() method.
+        $this->currentElement++;
     }
 
     /**
@@ -55,7 +68,7 @@ class ThreadList implements Iterator {
      */
     public function valid()
     {
-        // TODO: Implement valid() method.
+        return array_key_exists($this->currentElement, $this->threads);
     }
 
     /**
