@@ -10,6 +10,7 @@ use DB_ND3\DbWrapper;
 
 include_once('../DbWrapper.php');
 include_once('Comment.php');
+include_once('PostList.php');
 
 class ForumThread
 {
@@ -120,14 +121,17 @@ class ForumThread
     }
 
     public function setComments(){
-        $query = "SELECT * FROM post WHERE post_thread_id = " . $this->getId() . ";";
-       // $this->comments  = mysql_query($query);
+        $query = "SELECT * FROM post WHERE post_thread_id = " . $this->id . ";";
         $result  = mysql_query($query);
+        $this->comments = null;
         while ($row = mysql_fetch_array($result)) {
             $comment = new Comment($row['post_id'], $row['post_date'], $row['post_comment'], $row['post_author'],
                 $row['post_thread_id']);
-            $this->comments[] = $comment;
+            $comments[] = $comment;
         }
+        $pl = new PostList();
+        $pl->setPosts($comments);
+        $this->comments = $pl;
     }
 
     public function getComments(){

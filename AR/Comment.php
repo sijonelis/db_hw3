@@ -26,7 +26,7 @@ class Comment {
         $this->id = $id;
         $this->date = $date;
         $this->comment = $comment;
-        $this->title = $author;
+        $this->author = $author;
         $this->threadId = $threadId;
         $dbWrapper = new DbWrapper();
         $this->conn = $dbWrapper->getConnection();

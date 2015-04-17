@@ -18,6 +18,9 @@ $tl->loadAll();
     <?php
     while($tl->valid()) {
         ?>
+        <tr><td colspan="5">
+            TEMA
+        </td></tr>
         <tr>
             <td> <?php echo $tl->current()->getId();?> </td>
             <td> <?php echo $tl->current()->getAuthor();?> </td>
@@ -25,9 +28,32 @@ $tl->loadAll();
             <td> <?php echo $tl->current()->getPostDate();?> </td>
             <td> <?php echo $tl->current()->getPostCount();?> </td>
         </tr>
-    <?php
+        <tr><td colspan="5">
+            KOMENTARAI
+        </td></tr>
+        <tr><td colspan="5">
+                <table class="table" border-color="red">
+                    <?php
+                    $comments = $tl->current()->getComments();
+                    while($comments->valid()){
+                        ?>
+                        <tr>
+                            <td> <?php echo $comments->current()->getId();?></td>
+                            <td> <?php echo $comments->current()->getAuthor();?></td>
+                            <td> <?php echo $comments->current()->getDate();?></td>
+                        </tr>
+                        <tr>
+                            <td> <?php echo $comments->current()->getComment();?></td>
+                        </tr>
+                        <?php
+                        $comments->next();
+                    }
+                    ?>
+                </table>
+            </td></tr>
+        <?php
         $tl->next();
     }
     ?>
-</tbody>
+    </tbody>
 </table>
