@@ -49,11 +49,17 @@ class ForumThread
     }
 
     public function save(){
-        $query = "INSERT INTO thread(thread_title, thread_created_by, thread_comment_count, thread_date) VALUES ('". $this->getTitle()
-            . "', '". $this->getAuthor(). "',0, NOW());";
+        $query = "SELECT thread_id FROM thread where thread_id = " . $this->id . ";";
+        $result  = mysql_query($query);
+        $row = mysql_fetch_array($result);
+        if($row)
+            $query = "UPDATE thread SET thread_comment_count =" . $this->postCount . " where thread_id =" . $this->id . ";";
+        else
+            $query = "INSERT INTO thread(thread_title, thread_created_by, thread_comment_count, thread_date) VALUES ('". $this->getTitle()
+                . "', '". $this->getAuthor(). "',0, NOW());";
         $result  = mysql_query($query);
         echo $query;
-        if($result == 1) echo "<br/> Thread created successfully";
+        if($result) echo "<br/> Thread created/updated successfully";
     }
 
     public function setId($id)

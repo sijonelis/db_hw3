@@ -20,7 +20,7 @@ class Comment {
     private $author;
     private $conn;
     private $threadId;
-    private $thread;
+//    private $thread;
 
     public function __construct($id = null, $date = null, $comment = null, $author = null, $threadId = null){
         $this->id = $id;
@@ -39,6 +39,11 @@ class Comment {
             . "', '". $this->getComment(). "', NOW(), " . $this->getThreadId() . ");";
         $result  = mysql_query($query);
         echo $query;
+        echo "<br/>";
+
+        $thread = $this->getThread();
+        $thread->setPostCount($thread->getPostCount()+1);
+        $thread->save();
         if($result == 1) echo "<br/> Comment created successfully";
     }
 
@@ -83,10 +88,13 @@ class Comment {
     }
 
     public function getThread(){
-        $query = "SELECT * FROM thread WHERE thread_id = " . $this->getId() . ";";
-        $this->thread  = mysql_query($query);
-        return $this->thread;
+        $query = "SELECT * FROM thread WHERE thread_id = " . $this->getThreadId() . ";";
+        $result = mysql_query($query);
+        $row = mysql_fetch_array($result);
+        return new ForumThread($row['thread_id'], $row['thread_created_by'], $row['thread_date'],
+                $row['thread_title'], $row['thread_comment_count']);
     }
+
 
     public function getRandomThreadId(){
         $query = "SELECT thread_id FROM thread;";
