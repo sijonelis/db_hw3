@@ -1,0 +1,101 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Vilkazz
+ * Date: 4/16/2015
+ * Time: 6:17 PM
+ */
+namespace DB_ND3\AR;
+
+use DB_ND3\DbWrapper;
+
+include_once('../DbWrapper.php');
+include('ForumThread.php');
+
+class Comment {
+
+    private $id;
+    private $date;
+    private $comment;
+    private $author;
+    private $conn;
+    private $threadId;
+    private $thread;
+
+    public function __construct($id = null, $date = null, $comment = null, $author = null){
+        $this->id = $id;
+        $this->date = $date;
+        $this->postDate = $comment;
+        $this->title = $author;
+        $dbWrapper = new DbWrapper();
+        $this->conn = $dbWrapper->getConnection();
+
+    }
+
+    public function save(){
+
+        $query = "INSERT INTO post(post_author, post_comment, post_date, post_thread_id) VALUES ('". $this->getAuthor()
+            . "', '". $this->getComment(). "', NOW(), " . $this->getThreadId() . ");";
+        $result  = mysql_query($query);
+        echo $query;
+        if($result == 1) echo "<br/> Comment created successfully";
+    }
+
+    public function setId($id){
+        $this->id = $id;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function setDate($date){
+        $this->date = $date;
+    }
+
+    public function getDate(){
+        return $this->date;
+    }
+
+    public function setComment($comment){
+        $this->comment = $comment;
+    }
+
+    public function getComment(){
+        return $this->comment;
+    }
+
+    public function setAuthor($author){
+        $this->author = $author;
+    }
+
+    public function getAuthor(){
+        return $this->author;
+    }
+
+    public function setThreadId($threadID){
+        $this->threadId = $threadID;
+    }
+
+    public function getThreadId(){
+        return $this->threadId;
+    }
+
+    public function getThread(){
+        $query = "SELECT * FROM thread WHERE thread_id = " . $this->getId() . ";";
+        $this->thread  = mysql_query($query);
+        return $this->thread;
+    }
+
+    public function getRandomThreadId(){
+        $query = "SELECT thread_id FROM thread;";
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_array($result)) {
+            $pool[] = $row['thread_id'];
+        }
+        return $pool[array_rand($pool, 1)];
+    }
+
+
+
+}
