@@ -22,7 +22,7 @@ class ForumThread
     private $comments;
     private $conn;
 
-    public function __construct($id, $author, $postDate, $title, $postCount)
+    public function __construct($id = null, $author = null, $postDate = null, $title = null, $postCount = 0)
     {
         $this->id = $id;
         $this->author = $author;
@@ -52,8 +52,7 @@ class ForumThread
     public function save(){
         $query = "SELECT thread_id FROM thread where thread_id = " . $this->id . ";";
         $result  = mysql_query($query);
-        $row = mysql_fetch_array($result);
-        if($row)
+        if($result)
             $query = "UPDATE thread SET thread_comment_count = " . $this->postCount. " where thread_id =" . $this->id . ";";
         else
             $query = "INSERT INTO thread(thread_title, thread_created_by, thread_comment_count, thread_date) VALUES ('". $this->getTitle()
