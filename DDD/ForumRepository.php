@@ -45,6 +45,10 @@ class ForumRepository {
         while ($row = mysql_fetch_array($result)) {
             $pool[] = $row['thread_id'];
         }
+        if(!isset($pool)){
+            echo 'Norint paskelbti pranešimą reikia sukurit bent 1 giją';
+            exit;
+        }
         return $pool[array_rand($pool, 1)];
     }
 
