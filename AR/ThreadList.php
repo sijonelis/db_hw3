@@ -68,6 +68,9 @@ class ThreadList implements Iterator {
      */
     public function valid()
     {
+        if($this->threads == null)
+            return false;
+        else
         return array_key_exists($this->currentElement, $this->threads);
     }
 

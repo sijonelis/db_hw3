@@ -14,12 +14,14 @@ include_once('ForumRepository.php');
 
 <?php
 $forRep = new ForumRepository();
+$comRep = new CommentRepository();
 $threads = $forRep->getAll();
 ?>
 <div class="title"> Forumas </div>
 <table class="table">
     <tbody>
     <?php
+    if($threads)
         foreach($threads as $thread) {
         ?>
 
@@ -34,26 +36,29 @@ $threads = $forRep->getAll();
         <tr><td colspan="5">
                 <table class="table" border-color="red">
                     <?php
-                    echo "comment will be here";
-//                    $comments = $tl->current()->getComments();
-//                    while($comments->valid()){
+                    $comments = $comRep->getCommentsByThreadId($thread['id']);
+                    if($comments)
+                     foreach($comments as $comment){
 //                        ?>
-<!--                        <tr>-->
-<!--                            <td> Komentaro ID: --><?php //echo $comments->current()->getId();?><!--</td>-->
-<!--                            <td> Komentaro autorius:--><?php //echo $comments->current()->getAuthor();?><!--</td>-->
-<!--                            <td> Komentaro data: --><?php //echo $comments->current()->getDate();?><!--</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td> Komentaras: --><?php //echo $comments->current()->getComment();?><!--</td>-->
-<!--                        </tr>-->
-<!--                        --><?php
-//                        $comments->next();
-//                    }
+                        <tr>
+                            <td> Komentaro ID: <?php echo $comment['id'];?></td>
+                            <td> Komentaro autorius:<?php echo $comment['author'];?></td>
+                            <td> Komentaro data: <?php echo $comment['date'];?></td>
+                        </tr>
+                        <tr>
+                            <td> Komentaras: <?php echo $comment['comment'];?></td>
+                        </tr>
+                        <?php
+                    }
+                    unset ($comments);
+                    unset ($comment);
                     ?>
                 </table>
             </td></tr>
         <?php
     }
+    unset($thread);
+    unset($threads);
     ?>
     </tbody>
 </table>

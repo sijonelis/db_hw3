@@ -7,10 +7,10 @@
  */
 
 use DB_ND3\DbWrapper;
-
 include_once('../DbWrapper.php');
 
 class ForumRepository {
+
     private $conn;
 
     public function __construct(){
@@ -19,10 +19,10 @@ class ForumRepository {
     }
 
     public function getAll(){
-
         $query = "SELECT * FROM thread;";
         $result  = mysql_query($query);
         $arrayKeys = ['id', 'author', 'date', 'title', 'commentCount'];
+        $threads = null;
         while ($row = mysql_fetch_array($result)) {
             $thread = [$row['thread_id'], $row['thread_created_by'], $row['thread_date'],
                 $row['thread_title'], $row['thread_comment_count']];
@@ -32,7 +32,6 @@ class ForumRepository {
     }
 
     public function saveThread($thread){
-
         $query = "INSERT INTO thread(thread_title, thread_created_by, thread_comment_count, thread_date) VALUES ('". $thread->getTitle()
             . "', '". $thread->getAuthor(). "',0, NOW());";
         $result  = mysql_query($query);

@@ -34,6 +34,7 @@ class ForumThread
         $this->conn = $dbWrapper->getConnection();
         $query = "SELECT * FROM thread;";
         $result  = mysql_query($query);
+        $threads = null;
         while ($row = mysql_fetch_array($result)) {
             $thread = new ForumThread($row['thread_id'], $row['thread_created_by'], $row['thread_date'],
                 $row['thread_title'], $row['thread_comment_count']);
