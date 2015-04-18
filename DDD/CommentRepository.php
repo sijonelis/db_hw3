@@ -22,8 +22,13 @@ class CommentRepository {
         $this->conn = $dbWrapper->getConnection();
     }
 
-    public function saveComment(){
+    public function saveComment($comment){
 
-       //rasome i db
+        $query = "INSERT INTO post(post_author, post_comment, post_date, post_thread_id) VALUES ('". $comment->getAuthor()
+            . "', '". $comment->getComment(). "', NOW(), " . $comment->getThreadId() . ");";
+        $result  = mysql_query($query);
+        echo $query;
+        if($result == 1) echo "<br/> Comment created successfully";
+
     }
 }
