@@ -11,9 +11,6 @@ use DB_ND3\DbWrapper;
 include_once('../DbWrapper.php');
 
 class ForumRepository {
-
-    private $threads;
-
     private $conn;
 
     public function __construct(){
@@ -23,12 +20,15 @@ class ForumRepository {
 
     public function getAll(){
 
-        for($i=0;$i<=5;$i++) {
-            $thread = new ForumThread($i, 'Name' . $i, 'A' . $i, date('Y-m-d H:i:s'));
-            $this->threads[] = $thread;
+        $query = "SELECT * FROM thread;";
+        $result  = mysql_query($query);
+        $arrayKeys = ['id', 'author', 'date', 'title', 'commentCount'];
+        while ($row = mysql_fetch_array($result)) {
+            $thread = [$row['thread_id'], $row['thread_created_by'], $row['thread_date'],
+                $row['thread_title'], $row['thread_comment_count']];
+            $threads[] = array_combine($arrayKeys, array_values($thread));
         }
-
-        return $this->threads;
+        return $threads;
     }
 
     public function saveThread($thread){
