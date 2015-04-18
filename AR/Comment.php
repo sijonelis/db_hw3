@@ -88,7 +88,7 @@ class Comment {
     }
 
     public function getThread(){
-        $query = "SELECT * FROM thread WHERE thread_id = " . $this->getThreadId() . ";";
+        $query = "SELECT * FROM thread WHERE thread_id = " . $this->threadId . ";";
         $result = mysql_query($query);
         $row = mysql_fetch_array($result);
         return new ForumThread($row['thread_id'], $row['thread_created_by'], $row['thread_date'],

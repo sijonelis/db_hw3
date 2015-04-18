@@ -19,6 +19,5 @@ $comment = new Comment();
 $comment->setAuthor('Author: '. $rand->generateRandomString(5));
 $comment->setComment('Lorem ipsum blah blah blah blah' . $rand->generateRandomString(30));
 $comment->setThreadId($comment->getRandomThreadId());
-$comment->getThreadId();
 
 $comment->save();

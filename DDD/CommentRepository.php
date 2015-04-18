@@ -6,7 +6,11 @@
  * Time: 6:20 PM
  */
 
-use DbWrapper;
+
+use DB_ND3\DbWrapper;
+
+include_once('../DbWrapper.php');
+
 class CommentRepository {
 
     private $threads;
@@ -14,7 +18,8 @@ class CommentRepository {
     private $conn;
 
     public function __construct(){
-        $conn = new mysqli();
+        $dbWrapper = new DbWrapper();
+        $this->conn = $dbWrapper->getConnection();
     }
 
     public function saveComment(){

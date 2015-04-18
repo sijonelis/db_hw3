@@ -18,19 +18,15 @@ $tl->loadAll();
     <?php
     while($tl->valid()) {
         ?>
-        <tr><td colspan="5">
-            TEMA
-        </td></tr>
+
         <tr>
-            <td> <?php echo $tl->current()->getId();?> </td>
-            <td> <?php echo $tl->current()->getAuthor();?> </td>
-            <td> <?php echo $tl->current()->getTitle();?> </td>
-            <td> <?php echo $tl->current()->getPostDate();?> </td>
-            <td> <?php echo $tl->current()->getPostCount();?> </td>
+            <td> ID: <?php echo $tl->current()->getId();?> </td>
+            <td> Autorius: <?php echo $tl->current()->getAuthor();?> </td>
+            <td> Pavadinimas: <?php echo $tl->current()->getTitle();?> </td>
+            <td> Data: <?php echo $tl->current()->getPostDate();?> </td>
+            <td> Komentarų skaičius<?php echo $tl->current()->getPostCount();?> </td>
         </tr>
-        <tr><td colspan="5">
-            KOMENTARAI
-        </td></tr>
+ 
         <tr><td colspan="5">
                 <table class="table" border-color="red">
                     <?php
@@ -38,12 +34,12 @@ $tl->loadAll();
                     while($comments->valid()){
                         ?>
                         <tr>
-                            <td> <?php echo $comments->current()->getId();?></td>
-                            <td> <?php echo $comments->current()->getAuthor();?></td>
-                            <td> <?php echo $comments->current()->getDate();?></td>
+                            <td> Komentaro ID: <?php echo $comments->current()->getId();?></td>
+                            <td> Komentaro autorius:<?php echo $comments->current()->getAuthor();?></td>
+                            <td> Komentaro data: <?php echo $comments->current()->getDate();?></td>
                         </tr>
                         <tr>
-                            <td> <?php echo $comments->current()->getComment();?></td>
+                            <td> Komentaras: <?php echo $comments->current()->getComment();?></td>
                         </tr>
                         <?php
                         $comments->next();

@@ -54,7 +54,7 @@ class ForumThread
         $result  = mysql_query($query);
         $row = mysql_fetch_array($result);
         if($row)
-            $query = "UPDATE thread SET thread_comment_count =" . $this->postCount . " where thread_id =" . $this->id . ";";
+            $query = "UPDATE thread SET thread_comment_count = " . $this->postCount. " where thread_id =" . $this->id . ";";
         else
             $query = "INSERT INTO thread(thread_title, thread_created_by, thread_comment_count, thread_date) VALUES ('". $this->getTitle()
                 . "', '". $this->getAuthor(). "',0, NOW());";

@@ -12,12 +12,14 @@ class Comment {
     private $date;
     private $comment;
     private $author;
+    private $threadId;
 
-    public function __construct($id = null, $date = null, $comment = null, $author = null){
+    public function __construct($id = null, $date = null, $comment = null, $author = null, $threadId = null){
         $this->id = $id;
         $this->date = $date;
-        $this->postDate = $comment;
-        $this->title = $author;
+        $this->comment = $comment;
+        $this->author = $author;
+        $this->threadId = $threadId;
     }
 
     public function setId($id){
@@ -50,6 +52,14 @@ class Comment {
 
     public function getAuthor(){
         return $this->author;
+    }
+
+    public function setThreadId($threadID){
+        $this->threadId = $threadID;
+    }
+
+    public function getThreadId(){
+        return $this->threadId;
     }
 
 }
