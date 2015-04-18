@@ -24,7 +24,7 @@ $tl->loadAll();
             <td> Autorius: <?php echo $tl->current()->getAuthor();?> </td>
             <td> Pavadinimas: <?php echo $tl->current()->getTitle();?> </td>
             <td> Data: <?php echo $tl->current()->getPostDate();?> </td>
-            <td> Komentarų skaičius<?php echo $tl->current()->getPostCount();?> </td>
+            <td> Komentarų skaičius: <?php echo $tl->current()->getPostCount();?> </td>
         </tr>
  
         <tr><td colspan="5">

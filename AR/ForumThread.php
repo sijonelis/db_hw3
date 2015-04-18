@@ -72,15 +72,6 @@ class ForumThread
         return $this->id;
     }
 
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
 
     public function setAuthor($author)
     {
@@ -123,6 +114,7 @@ class ForumThread
         $query = "SELECT * FROM post WHERE post_thread_id = " . $this->id . ";";
         $result  = mysql_query($query);
         $this->comments = null;
+        $comments = null;
         while ($row = mysql_fetch_array($result)) {
             $comment = new Comment($row['post_id'], $row['post_date'], $row['post_comment'], $row['post_author'],
                 $row['post_thread_id']);

@@ -68,7 +68,10 @@ class PostList implements Iterator {
      */
     public function valid()
     {
-        return array_key_exists($this->currentElement, $this->posts);
+        if($this->posts == null)
+            return false;
+        else
+            return array_key_exists($this->currentElement, $this->posts);
     }
 
     /**
