@@ -7,11 +7,9 @@
  */
 namespace DB_ND3\AR;
 use DB_ND3\DbWrapper;
-
 include_once('../DbWrapper.php');
 include_once('Comment.php');
 include_once('PostList.php');
-
 class ForumThread
 {
     private $id;
@@ -21,7 +19,6 @@ class ForumThread
     private $postCount;
     private $comments;
     private $conn;
-
     public function __construct($id = null, $author = null, $postDate = null, $title = null, $postCount = 0)
     {
         $this->id = $id;
@@ -32,12 +29,9 @@ class ForumThread
         $dbWrapper = new DbWrapper();
         $this->conn = $dbWrapper->getConnection();
     }
-
-
     public function loadAll(){
         $dbWrapper = new DbWrapper();
         $this->conn = $dbWrapper->getConnection();
-
         $query = "SELECT * FROM thread;";
         $result  = mysql_query($query);
         while ($row = mysql_fetch_array($result)) {
@@ -48,7 +42,6 @@ class ForumThread
         }
         return $threads;
     }
-
     public function save(){
         $query = "SELECT thread_id FROM thread where thread_id = " . $this->id . ";";
         $result  = mysql_query($query);
@@ -61,55 +54,43 @@ class ForumThread
         echo $query;
         if($result) echo "<br/> Thread created/updated successfully";
     }
-
     public function setId($id)
     {
         $this->id = $id;
     }
-
     public function getId()
     {
         return $this->id;
     }
-
-
     public function setAuthor($author)
     {
         $this->author = $author;
     }
-
     public function getAuthor(){
         return $this->author;
     }
-
     public function setPostDate($postDate)
     {
         $this->postDate = $postDate;
     }
-
     public function getPostDate()
     {
         return $this->postDate;
     }
-
     public function setTitle($title)
     {
         $this->title = $title;
     }
-
     public function getTitle()
     {
         return $this->title;
     }
-
     public function setPostCount($postCount){
         $this->postCount = $postCount;
     }
-
     public function getPostCount(){
         return $this->postCount;
     }
-
     public function setComments(){
         $query = "SELECT * FROM post WHERE post_thread_id = " . $this->id . ";";
         $result  = mysql_query($query);
@@ -124,7 +105,6 @@ class ForumThread
         $pl->setPosts($comments);
         $this->comments = $pl;
     }
-
     public function getComments(){
         return $this->comments;
     }
