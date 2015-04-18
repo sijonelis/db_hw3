@@ -11,16 +11,18 @@ namespace DDD;
 class ForumThread
 {
     private $id;
-    private $name;
+    private $author;
     private $postDate;
     private $title;
+    private $postCount;
 
-    public function __construct($id, $name, $postDate, $title)
+    public function __construct($id = null, $author = null, $postDate = null, $title = null, $postCount = 0)
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->author = $author;
         $this->postDate = $postDate;
         $this->title = $title;
+        $this->postCount = $postCount;
     }
 
     public function setId($id)
@@ -33,14 +35,14 @@ class ForumThread
         return $this->id;
     }
 
-    public function setName($name)
+
+    public function setAuthor($author)
     {
-        $this->name = $name;
+        $this->author = $author;
     }
 
-    public function getName()
-    {
-        return $this->name;
+    public function getAuthor(){
+        return $this->author;
     }
 
     public function setPostDate($postDate)

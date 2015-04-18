@@ -31,6 +31,15 @@ class ForumRepository {
         return $this->threads;
     }
 
+    public function saveThread($thread){
+
+        $query = "INSERT INTO thread(thread_title, thread_created_by, thread_comment_count, thread_date) VALUES ('". $thread->getTitle()
+            . "', '". $thread->getAuthor(). "',0, NOW());";
+        $result  = mysql_query($query);
+        echo $query;
+        if($result) echo "<br/> Thread created successfully";
+    }
+
     public function getRandomThreadId(){
         $query = "SELECT thread_id FROM thread;";
         $result = mysql_query($query);

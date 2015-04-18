@@ -29,6 +29,5 @@ class CommentRepository {
         $result  = mysql_query($query);
         echo $query;
         if($result == 1) echo "<br/> Comment created successfully";
-
     }
 }
